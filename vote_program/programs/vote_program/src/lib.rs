@@ -11,6 +11,3 @@ pub mod vote_program {
         Ok(())
     }
 }
-
-#[derive(Accounts)]
-pub struct Initialize {}

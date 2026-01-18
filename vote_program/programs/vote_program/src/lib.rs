@@ -1,5 +1,8 @@
 use anchor_lang::prelude::*;
 
+
+pub mod context;
+pub use context::*;
 declare_id!("6Xn8LRYdVC82AHcw8yegpjAjPatBRTnDqpdi9Jn62LJZ");
 
 #[program]

@@ -1,2 +1,2 @@
-pub mod Initialize;
-pub use Initialize::*;
+pub mod InitializeTreasury;
+pub use InitializeTreasury::*;

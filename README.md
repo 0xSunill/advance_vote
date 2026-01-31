@@ -1,4 +1,4 @@
-### advance_vote
+### advance vote dapp
 ![advance_vote logo](./image.png)
 
 **Treasury & Token:** The admin creates a custom SPL token (voting power) and sets a price in SOL.

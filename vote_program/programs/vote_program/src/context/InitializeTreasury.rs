@@ -1,6 +1,7 @@
 use crate::state::*;
 use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, Token, TokenAccount};
+use anchor_lang::solana_program::pubkey::Pubkey;
 
 #[derive(Accounts)]
 pub struct InitializeTreasury<'info> {
@@ -22,5 +23,22 @@ pub struct InitializeTreasury<'info> {
     pub mint_authority: Account<'info, MintAuthority>,
 
     pub system_program: Program<'info, System>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
     pub token_program: Program<'info, Token>,
+}
+
+impl <'info> InitializeTreasury<'info> {
+    
+    pub fn init_treasury(&mut self) -> Result<()> {
+        let program_id = crate::ID;
+        let (_, bump) = Pubkey::find_program_address(&[b"treasury_config"], &program_id);
+        
+        self.treasury_config_account.authority = self.authority.key();
+        self.treasury_config_account.x_mint = self.x_mint.key();
+        self.treasury_config_account.treasury_token_account = self.treasury_token_account.key();
+        self.treasury_config_account.sol_price = 0;
+        self.treasury_config_account.token_per_purchased = 0;
+        self.treasury_config_account.bump = bump;
+        Ok(())
+    }
 }

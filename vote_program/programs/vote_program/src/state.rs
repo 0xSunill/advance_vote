@@ -1,4 +1,5 @@
 use anchor_lang::prelude::*;
+
 #[account]
 #[derive(InitSpace)]
 pub struct TreasuryConfig {
@@ -9,3 +10,6 @@ pub struct TreasuryConfig {
   pub token_per_purchased: u64,
   pub bump: u8 ,
 }
+
+#[account]
+pub struct MintAuthority {}

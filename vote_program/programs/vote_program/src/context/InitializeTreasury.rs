@@ -29,16 +29,16 @@ pub struct InitializeTreasury<'info> {
 
 impl <'info> InitializeTreasury<'info> {
     
-    pub fn init_treasury(&mut self) -> Result<()> {
-        let program_id = crate::ID;
-        let (_, bump) = Pubkey::find_program_address(&[b"treasury_config"], &program_id);
-        
+    pub fn init_treasury(&mut self,bumps:&makeBumps) -> Result<()> {
+        // let program_id = crate::ID;
+        // let (_, bump) = Pubkey::find_program_address(&[b"sol_vault"], &program_id);
+        // seed
         self.treasury_config_account.authority = self.authority.key();
         self.treasury_config_account.x_mint = self.x_mint.key();
         self.treasury_config_account.treasury_token_account = self.treasury_token_account.key();
-        self.treasury_config_account.sol_price = 0;
+        self.treasury_config_account.sol_price = 100;
         self.treasury_config_account.token_per_purchased = 0;
-        self.treasury_config_account.bump = bump;
+        self.treasury_config_account.bump = bumps.sol_vault;
         Ok(())
     }
 }

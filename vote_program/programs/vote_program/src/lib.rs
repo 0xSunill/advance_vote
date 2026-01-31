@@ -11,7 +11,7 @@ pub mod vote_program {
     use super::*;
     use crate::context::InitializeTreasury;
 
-    pub fn initializeTreasury(ctx: Context<InitializeTreasury>) -> Result<()> {
-        ctx.accounts.init_treasury()
+    pub fn initializeTreasury(ctx: Context<InitializeTreasury> ) -> Result<()> {
+        ctx.accounts.init_treasury(&ctx.bumps)
     }
 }

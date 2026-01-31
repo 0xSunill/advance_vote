@@ -16,10 +16,10 @@ pub struct InitializeTreasury<'info> {
     #[account(init, payer = authority, associated_token::mint = x_mint , associated_token::authority =authority )]
     pub treasury_token_account: Account<'info, TokenAccount>,
 
-    #[account(mut,seeds = [b"sol_vault"], bump)]
-    pub sol_vault: Account<'info, TokenAccount>,
+    #[account(mut, seeds = [b"sol_vault"], bump)]
+    pub sol_vault: SystemAccount<'info>,
 
-    #[account(seeds = [b"mint_authority"], bump)]
+    #[account(init, payer = authority, space = 8, seeds = [b"mint_authority"], bump)]
     pub mint_authority: Account<'info, MintAuthority>,
 
     pub system_program: Program<'info, System>,
@@ -29,16 +29,13 @@ pub struct InitializeTreasury<'info> {
 
 impl <'info> InitializeTreasury<'info> {
     
-    pub fn init_treasury(&mut self,bumps:&makeBumps) -> Result<()> {
-        // let program_id = crate::ID;
-        // let (_, bump) = Pubkey::find_program_address(&[b"sol_vault"], &program_id);
-        // seed
+    pub fn init_treasury(&mut self, bumps: &Bumps) -> Result<()> {
         self.treasury_config_account.authority = self.authority.key();
         self.treasury_config_account.x_mint = self.x_mint.key();
         self.treasury_config_account.treasury_token_account = self.treasury_token_account.key();
         self.treasury_config_account.sol_price = 100;
         self.treasury_config_account.token_per_purchased = 0;
-        self.treasury_config_account.bump = bumps.sol_vault;
+        self.treasury_config_account.bump = bumps.treasury_config_account;
         Ok(())
     }
 }

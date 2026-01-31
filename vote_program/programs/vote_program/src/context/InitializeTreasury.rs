@@ -12,6 +12,7 @@ pub struct InitializeTreasury<'info> {
     #[account(init, payer = authority,mint::authority = mint_authority , mint::decimals = 6, seeds = [b"x_mint"], bump)]
     pub x_mint: Account<'info, Mint>,
 
+    #[account(init, payer = authority, associated_token::mint = x_mint , associated_token::authority =authority )]
     pub treasury_token_account: Account<'info, TokenAccount>,
 
     #[account(mut,seeds = [b"sol_vault"], bump)]
